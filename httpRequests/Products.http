@@ -1,0 +1,11 @@
+@host=http://localhost:3333
+
+# Add Customer
+POST {{host}}/products
+Content-Type: application/json
+
+{
+  "name": "Caralho",
+  "price": 123.12,
+  "quantity": 1000
+}
