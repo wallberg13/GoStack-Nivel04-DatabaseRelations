@@ -1,0 +1,10 @@
+@host=http://localhost:3333
+
+# Add Customer
+POST {{host}}/customers
+Content-Type: application/json
+
+{
+  "name": "Wall Berg Morais",
+  "email": "wallberg@berg.com.br"
+}
