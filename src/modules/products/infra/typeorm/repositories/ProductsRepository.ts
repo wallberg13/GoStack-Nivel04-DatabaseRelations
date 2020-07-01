@@ -1,4 +1,4 @@
-import { getRepository, Repository, In } from "typeorm";
+import { getRepository, Repository } from "typeorm";
 
 import IProductsRepository from "@modules/products/repositories/IProductsRepository";
 import ICreateProductDTO from "@modules/products/dtos/ICreateProductDTO";
@@ -35,13 +35,31 @@ class ProductsRepository implements IProductsRepository {
   }
 
   public async findAllById(products: IFindProducts[]): Promise<Product[]> {
-    // TODO
+    const productsFinded = await this.ormRepository.findByIds(products);
+    return productsFinded;
   }
 
   public async updateQuantity(
     products: IUpdateProductsQuantityDTO[],
   ): Promise<Product[]> {
-    // TODO
+    const productsFinded = await this.ormRepository.findByIds(
+      products.map(product => product.id),
+    );
+
+    const newProducts = productsFinded.map(product => {
+      // Não posso fazer atribuição de objeto do parâmetro, então crio uma variável.
+      const newProduct = product;
+      const productDTO = products.find(o => o.id === newProduct.id);
+
+      if (productDTO) {
+        newProduct.quantity = productDTO.quantity;
+      }
+
+      return newProduct;
+    });
+
+    await this.ormRepository.save(newProducts);
+    return newProducts;
   }
 }
 
