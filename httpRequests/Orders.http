@@ -1,0 +1,19 @@
+@host=http://localhost:3333
+
+# Add Customer
+POST {{host}}/orders/
+Content-Type: application/json
+
+{
+  "customer_id": "747839c0-abbd-4cb7-8d50-240e953c2822",
+  "products": [
+    {
+      "id": "273d1120-cfba-4bfb-8079-a1d0f3c8666a",
+      "quantity": 10
+    },
+    {
+      "id": "03785155-82b5-487d-812b-7b99f08ecc29",
+      "quantity": 10
+    }
+  ]
+}
